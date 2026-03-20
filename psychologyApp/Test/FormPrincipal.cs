@@ -42,5 +42,11 @@ namespace psychologyApp.Test
             FormPacientes nuevoForm = new FormPacientes();
             nuevoForm.Show();
         }
+
+        private void btnPsicologos_Click(object sender, EventArgs e)
+        {
+            FormPsicologos formPsicologos = new FormPsicologos();
+            formPsicologos.Show();
+        }
     }
 }

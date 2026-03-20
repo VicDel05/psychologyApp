@@ -33,6 +33,7 @@
             btnConfiguracion = new Button();
             btnCitas = new Button();
             btnPacientes = new Button();
+            btnPsicologos = new Button();
             SuspendLayout();
             // 
             // lblBienvenida
@@ -81,11 +82,22 @@
             btnPacientes.UseVisualStyleBackColor = true;
             btnPacientes.Click += btnPacientes_Click;
             // 
+            // btnPsicologos
+            // 
+            btnPsicologos.Location = new Point(599, 144);
+            btnPsicologos.Name = "btnPsicologos";
+            btnPsicologos.Size = new Size(112, 34);
+            btnPsicologos.TabIndex = 5;
+            btnPsicologos.Text = "button1";
+            btnPsicologos.UseVisualStyleBackColor = true;
+            btnPsicologos.Click += btnPsicologos_Click;
+            // 
             // FormPrincipal
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnPsicologos);
             Controls.Add(btnPacientes);
             Controls.Add(btnCitas);
             Controls.Add(btnConfiguracion);
@@ -104,5 +116,6 @@
         private Button btnConfiguracion;
         private Button btnCitas;
         private Button btnPacientes;
+        private Button btnPsicologos;
     }
 }
