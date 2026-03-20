@@ -1,0 +1,154 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace psychologyApp.Migrations
+{
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Pacientes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nombre = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
+                    Telefono = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pacientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Psicologos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nombre = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Especialidad = table.Column<string>(type: "TEXT", nullable: false),
+                    TarifaPorHora = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Psicologos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    Rol = table.Column<string>(type: "TEXT", nullable: false),
+                    NombreReal = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Citas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FechaHora = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DuracionMinutos = table.Column<int>(type: "INTEGER", nullable: false),
+                    Estado = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    Notas = table.Column<string>(type: "TEXT", nullable: false),
+                    PacienteId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PsicologoId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Citas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Citas_Pacientes_PacienteId",
+                        column: x => x.PacienteId,
+                        principalTable: "Pacientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Citas_Psicologos_PsicologoId",
+                        column: x => x.PsicologoId,
+                        principalTable: "Psicologos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pagos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Monto = table.Column<decimal>(type: "TEXT", nullable: false),
+                    FechaPago = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    MetodoPago = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    CitaId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pagos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Pagos_Citas_CitaId",
+                        column: x => x.CitaId,
+                        principalTable: "Citas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Citas_PacienteId",
+                table: "Citas",
+                column: "PacienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Citas_PsicologoId",
+                table: "Citas",
+                column: "PsicologoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pagos_CitaId",
+                table: "Pagos",
+                column: "CitaId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_Username",
+                table: "Usuarios",
+                column: "Username",
+                unique: true);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Pagos");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Citas");
+
+            migrationBuilder.DropTable(
+                name: "Pacientes");
+
+            migrationBuilder.DropTable(
+                name: "Psicologos");
+        }
+    }
+}
