@@ -28,9 +28,15 @@ namespace psychologyApp.Data
         // Configuración de la conexión
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // Usaremos SQLite porque es perfecto para apps de escritorio: 
-            // no requiere servidor y la base de datos es un simple archivo .db
-            optionsBuilder.UseSqlite("Data Source=ClinicaPsicologia.db");
+            // Si no se han proporcionado opciones, configuramos SQL Server
+            // usando LocalDB por defecto y la base de datos indicada por el usuario.
+            // Nombre de la base de datos: psychologyapp
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Usar la instancia de SQL Server en el equipo DESKTOP-6R529V0 por defecto
+                // Agregamos TrustServerCertificate=True para evitar errores de certificado en entornos locales
+                optionsBuilder.UseSqlServer("Server=DESKTOP-6R529V0;Database=psychologyapp;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;");
+            }
         }
 
         // Configuración adicional (Opcional pero recomendada)

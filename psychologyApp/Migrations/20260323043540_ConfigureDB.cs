@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace psychologyApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class ConfigureDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,11 +15,11 @@ namespace psychologyApp.Migrations
                 name: "Pacientes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nombre = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
-                    Telefono = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,11 +30,11 @@ namespace psychologyApp.Migrations
                 name: "Psicologos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Nombre = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Especialidad = table.Column<string>(type: "TEXT", nullable: false),
-                    TarifaPorHora = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Especialidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TarifaPorHora = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,12 +45,12 @@ namespace psychologyApp.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "TEXT", nullable: false),
-                    Rol = table.Column<string>(type: "TEXT", nullable: false),
-                    NombreReal = table.Column<string>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rol = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NombreReal = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,14 +61,14 @@ namespace psychologyApp.Migrations
                 name: "Citas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FechaHora = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DuracionMinutos = table.Column<int>(type: "INTEGER", nullable: false),
-                    Estado = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    Notas = table.Column<string>(type: "TEXT", nullable: false),
-                    PacienteId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PsicologoId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaHora = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DuracionMinutos = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Notas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PacienteId = table.Column<int>(type: "int", nullable: false),
+                    PsicologoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,12 +91,12 @@ namespace psychologyApp.Migrations
                 name: "Pagos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Monto = table.Column<decimal>(type: "TEXT", nullable: false),
-                    FechaPago = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    MetodoPago = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CitaId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Monto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FechaPago = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MetodoPago = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CitaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

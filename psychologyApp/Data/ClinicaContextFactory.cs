@@ -9,7 +9,9 @@ namespace psychologyApp.Data
         public ClinicaContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<ClinicaContext>();
-            optionsBuilder.UseSqlite("Data Source=ClinicaPsicologia.db");
+            // Usar la instancia de SQL Server en el equipo DESKTOP-6R529V0
+            // Agregamos TrustServerCertificate=True para evitar errores de certificado en entornos locales
+            optionsBuilder.UseSqlServer("Server=DESKTOP-6R529V0;Database=psychologyapp;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;");
 
             return new ClinicaContext(optionsBuilder.Options);
         }
